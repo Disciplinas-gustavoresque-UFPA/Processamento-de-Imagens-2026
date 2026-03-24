@@ -1,0 +1,44 @@
+name: Atualizar Placar Semanal
+
+on:
+  schedule:
+    # Roda todo Domingo às 23:55 UTC (aprox 20:55 no horário de Brasília)
+    - cron: '55 23 * * 0'
+  # Permite rodar manualmente para testes
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      # Necessário para o robô fazer commit no README
+      contents: write
+
+    steps:
+      - name: Baixar o repositório
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar dependências
+        run: |
+          pip install requests
+
+      - name: Rodar o Script do Placar
+        env:
+          # O GitHub fornece esse token automaticamente
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python .github/scripts/gerar_placar.py
+
+      - name: Salvar alterações no README
+        run: |
+          # Configura um usuário de bot genérico do GitHub para o commit
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add README.md
+          # Só faz commit se houver mudanças (evita erro se ninguém pontuou)
+          git diff-index --quiet HEAD || git commit -m "🤖 Robô do Placar: Atualizando Hall da Fama Semanal"
+          git push

@@ -111,17 +111,66 @@ O `app.py` carrega dinamicamente todos os arquivos `.py` dentro da pasta `plugin
 
 ## Como Executar
 
-1. Instale as dependências:
+Recomendamos fortemente o uso de um **Ambiente Virtual (venv)** para instalar o projeto. Isso evita conflitos com outras bibliotecas do seu computador e previne erros de permissão (especialmente no Windows).
+
+### Passo 1 — Criar o ambiente virtual
+Abra o terminal na pasta raiz do projeto e rode:
+
+```bash
+python -m venv venv
+```
+
+### Passo 2 — Ativar o ambiente virtual
+
+**No Windows (Command Prompt ou PowerShell):**
+```bash
+.\venv\Scripts\activate
+```
+> ⚠️ **Aviso (Erro no PowerShell):** Se você receber um erro vermelho dizendo que *"a execução de scripts foi desabilitada"*, significa que o seu Windows está bloqueando o terminal por segurança. Para resolver, rode o comando abaixo uma única vez, digite `S` para confirmar e tente ativar o ambiente de novo:
+> `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+
+**No Linux ou Mac:**
+```bash
+source venv/bin/activate
+```
+
+*(Você saberá que deu certo quando o nome `(venv)` aparecer em verde no início da linha do seu terminal).*
+
+### Passo 3 — Instalar as dependências
+Com o ambiente ativado, instale as bibliotecas necessárias para o projeto rodar:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Inicie a aplicação:
+### Passo 4 — Iniciar a aplicação
+Por fim, suba o servidor local do Streamlit:
 
 ```bash
 streamlit run app.py
 ```
+
+## 📌 Fluxo de Trabalho (Issues e Pull Requests)
+
+Para manter o repositório organizado e evitar que duas pessoas façam o mesmo trabalho, siga um dos fluxos abaixo:
+
+## 📌 Fluxo de Trabalho (Issues e PRs)
+
+Para manter o repositório organizado e evitar que duas pessoas façam o mesmo trabalho, siga um dos fluxos abaixo:
+
+### Fluxo 1: Resolvendo uma Tarefa do Professor
+1. **Escolha uma Issue e assuma a tarefa:** Vá na aba *Issues* do repositório, escolha uma tarefa aberta pelo professor e **deixe um comentário com o seu usuário (ex: "Vou desenvolver este plugin - @seu-nick")** para avisar à turma que você pegou a tarefa.
+2. **Crie a Branch:** Crie uma branch diretamente associada a essa Issue (ex: `seu-nick/feature/filtro-xyz`).
+3. **Faça Commits Atômicos:** Recomendamos fortemente a prática de commits atômicos. Cada commit deve ter um objetivo único e bem definido (fazer apenas uma coisa por vez), acompanhado de uma mensagem clara que explique exatamente o que foi alterado.
+4. **Abra um Draft PR:** Com o seu primeiro commit feito, abra um Pull Request em modo **Draft** (Rascunho). Isso reforça aos colegas que você já está ativamente trabalhando nela.
+5. **Desenvolva:** Continue fazendo seus commits atômicos normalmente na sua branch.
+6. **Revisão e Merge:** Quando terminar, tire o PR do modo Draft e solicite a revisão (Review) do professor (`@gustavoresque`) para que o código seja integrado.
+
+### Fluxo 2: Propondo uma Nova Ideia ou Correção
+1. **Crie uma Issue:** Teve uma ideia legal para um plugin novo ou encontrou um bug? Abra uma nova Issue descrevendo a sua proposta. **Não esqueça de colocar o seu usuário (`@seu-nick`) na descrição** para registrar a autoria da ideia.
+2. **Chame o Professor:** Mencione o professor (`@gustavoresque`) na descrição da Issue para avaliação.
+3. **Aprovação:** O professor vai avaliar, refinar o objetivo se necessário, e aprovar a ideia.
+4. **Mão na Massa:** Com a Issue aprovada, siga exatamente os mesmos passos do Fluxo 1 (crie a branch, faça commits atômicos, abra o Draft PR, desenvolva e peça revisão).
 
 ## Como Criar um Plugin
 

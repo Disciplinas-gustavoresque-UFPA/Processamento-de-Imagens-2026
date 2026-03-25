@@ -5,6 +5,15 @@ import importlib
 import pkgutil
 import os
 
+# Adiciona função de resetar/limpar as imagens no app
+def limpar_tela():
+    """Limpa as imagens da sessão e reseta o file uploader."""
+    st.session_state.imagem_original = None
+    st.session_state.imagem_atual = None
+    # Deleta a chave do uploader para forçar o componente a esvaziar
+    if "imagem_carregada" in st.session_state:
+        del st.session_state["imagem_carregada"]
+
 # Configuração da página
 st.set_page_config(
     page_title="Studio de Processamento de Imagens",

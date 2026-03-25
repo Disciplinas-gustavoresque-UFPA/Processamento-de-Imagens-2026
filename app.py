@@ -28,6 +28,10 @@ if "imagem_original" not in st.session_state:
 if "imagem_atual" not in st.session_state:
     st.session_state.imagem_atual = None
 
+# Adiciona controle da chave de uploader
+if "chave_upload" not in st.session_state:
+    st.session_state.chave_upload = 0
+
 # Barra lateral: upload de imagem
 st.sidebar.title("🖼️ Studio de Processamento de Imagens")
 st.sidebar.markdown("---")

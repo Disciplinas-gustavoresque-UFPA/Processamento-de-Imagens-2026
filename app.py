@@ -46,6 +46,11 @@ if arquivo_enviado is not None:
     st.session_state.imagem_original = imagem_numpy
     st.session_state.imagem_atual = imagem_numpy
 
+# Botão de resetar a imagem
+# O botão só é mostrado caso haja uma imagem carregada
+if st.session_state.imagem_original is not None:
+    st.sidebar.button("Remover imagem", on_click=limpar_tela, use_container_width=True)
+
 # Descoberta dinâmica de plugins
 pasta_plugins = os.path.join(os.path.dirname(os.path.abspath(__file__)), "plugins")
 

@@ -5,14 +5,6 @@ import importlib
 import pkgutil
 import os
 
-# Adiciona função de resetar/limpar as imagens no app
-def limpar_tela():
-    """Limpa as imagens da sessão e reseta o file uploader."""
-    st.session_state.imagem_original = None
-    st.session_state.imagem_atual = None
-    # Incrementa o contador para forçar a recriação do componente de upload
-    st.session_state.chave_upload += 1
-
 # Configuração da página
 st.set_page_config(
     page_title="Studio de Processamento de Imagens",
@@ -27,10 +19,6 @@ if "imagem_original" not in st.session_state:
 if "imagem_atual" not in st.session_state:
     st.session_state.imagem_atual = None
 
-# Adiciona controle da chave de uploader
-if "chave_upload" not in st.session_state:
-    st.session_state.chave_upload = 0
-
 # Barra lateral: upload de imagem
 st.sidebar.title("🖼️ Studio de Processamento de Imagens")
 st.sidebar.markdown("---")
@@ -38,21 +26,19 @@ st.sidebar.markdown("---")
 arquivo_enviado = st.sidebar.file_uploader(
     "Carregar imagem",
     type=["jpg", "jpeg", "png"],
-    help="Selecione uma imagem nos formatos JPG ou PNG.",
-    # Adiciona uma chave dinâmica para realizar a lógica de resetar imagem
-    key=f"imagem_carregada_{st.session_state.chave_upload}"
+    help="Selecione uma imagem nos formatos JPG ou PNG."
 )
 
 if arquivo_enviado is not None:
+    # Carrega a imagem quando houver arquivo
     imagem_pil = Image.open(arquivo_enviado).convert("RGB")
     imagem_numpy = np.array(imagem_pil)
     st.session_state.imagem_original = imagem_numpy
     st.session_state.imagem_atual = imagem_numpy
-
-# Botão de resetar a imagem
-# O botão só é mostrado caso haja uma imagem carregada
-if st.session_state.imagem_original is not None:
-    st.sidebar.button("Remover imagem", on_click=limpar_tela, use_container_width=True)
+else:
+    # Ao fechar o arquivo, a imagem é removida e a tela é resetada
+    st.session_state.imagem_original = None
+    st.session_state.imagem_atual = None
 
 # Descoberta dinâmica de plugins
 pasta_plugins = os.path.join(os.path.dirname(os.path.abspath(__file__)), "plugins")

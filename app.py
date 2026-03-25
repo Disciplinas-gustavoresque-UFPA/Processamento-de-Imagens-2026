@@ -39,8 +39,8 @@ arquivo_enviado = st.sidebar.file_uploader(
     "Carregar imagem",
     type=["jpg", "jpeg", "png"],
     help="Selecione uma imagem nos formatos JPG ou PNG.",
-    # Adiciona uma chave para realizar a lógica de resetar imagem
-    key="imagem_carregada"
+    # Adiciona uma chave dinâmica para realizar a lógica de resetar imagem
+    key=f"imagem_carregada_{st.session_state.chave_upload}"
 )
 
 if arquivo_enviado is not None:

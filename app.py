@@ -30,15 +30,20 @@ arquivo_enviado = st.sidebar.file_uploader(
 )
 
 if arquivo_enviado is not None:
+    # Adiciona aviso de que clickar no botão "x" fará a remoção da imagem
+    st.sidebar.caption("💡 **Dica:** Para limpar a tela, clique no **X** ao lado do nome do arquivo acima.")
+
     # Carrega a imagem quando houver arquivo
     imagem_pil = Image.open(arquivo_enviado).convert("RGB")
     imagem_numpy = np.array(imagem_pil)
     st.session_state.imagem_original = imagem_numpy
     st.session_state.imagem_atual = imagem_numpy
 else:
-    # Ao fechar o arquivo, a imagem é removida e a tela é resetada
-    st.session_state.imagem_original = None
-    st.session_state.imagem_atual = None
+    if st.session_state.imagem_original is not None:
+        # Ao fechar o arquivo, a imagem é removida e a tela é resetada
+        st.session_state.imagem_original = None
+        st.session_state.imagem_atual = None
+        st.toast("Imagem removida do app com sucesso!", icon="🧹")
 
 # Descoberta dinâmica de plugins
 pasta_plugins = os.path.join(os.path.dirname(os.path.abspath(__file__)), "plugins")

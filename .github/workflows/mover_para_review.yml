@@ -2,7 +2,7 @@ name: Mover PR para a Coluna Review
 
 # roda sempre que alguém solicitar uma revisão no PR
 on:
-  pull_request:
+  pull_request_target:
     types: [review_requested]
 
 jobs:
